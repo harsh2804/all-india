@@ -837,9 +837,9 @@ def p4(s4):#,s1,s2,s3,s4):
 
      
        
-       s1 = b['temperature(C)'].min()
-       s2 = b['temperature(C)'].max() + 10
-       f1=px.bar(b, x='seasons',y = 'temperature(C)', hover_name = "year", color='seasons',
+       s1 = b['temperature(°C)'].min()
+       s2 = b['temperature(°C)'].max() + 10
+       f1=px.bar(b, x='seasons',y = 'temperature(°C)', hover_name = "year", color='seasons',
             animation_frame= 'year', barmode='group',range_y=[s1,s2])
        f1.update_layout(title='<b>Seasons('+s4+ ')</b>',title_x=0.5)
        #f.update_layout(xaxis = dict(rangeslider = dict(visible=True),type='date'),template='plotly_white')

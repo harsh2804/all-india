@@ -91,7 +91,7 @@ def getdata():
 
  b = a.set_index(['YEAR','Column1']).stack().reset_index()
 #print(b)
- b.columns = ['year','name','month','Max temp']
+ b.columns = ['year','name','month','temp']
  b.month = b.month.astype(int)
  return b
 
@@ -316,7 +316,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  '''
  c =    getdata()  #      b.copy()
  c = c[c.name == s4]
- c = c[c['Max temp'] >= 0]
+ c = c[c['temp'] >= 0]
  
  #c = c[(c.year >= s) & (c.year <= s1)]
  
@@ -404,9 +404,9 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
 
  #c['year'] = c['year'].astype(str
  #c['year']  = pd.to_datetime(c['year'], format='%Y')
- m1 = c['Max temp'].idxmax()
+ m1 = c['temp'].idxmax()
  x1 = c['year'][m1]
- y1 = round(c['Max temp'][m1],2)
+ y1 = round(c['temp'][m1],2)
  # = pn.widgets.DataFrame(c)   
  #print(c)
  '''
@@ -449,9 +449,9 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  if((radio_group == 'Month-Month')):
        import calendar
        c['Month'] = c['month'].apply(lambda x: calendar.month_abbr[x])
-       f= px.scatter(c, x="year", y="Max temp", color='Month', symbol="Month")
+       f= px.scatter(c, x="year", y="temp", color='Month', symbol="Month")
  else:
-        f=   go.Figure(go.Scatter(x=c['year'], y=c['Max temp'] ,mode='lines+markers' ))
+        f=   go.Figure(go.Scatter(x=c['year'], y=c['temp'] ,mode='lines+markers' ))
       
  im = Image.open(r"static/imd_logo.png")  
  f.layout.images = [dict(
@@ -498,14 +498,14 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  plotly_pane7.object = f
  plotly_pane7.config={'responsive': True, 'displaylogo': False }
  l1 = ['mean','50%','std','max']
- k3 = c["Max temp"].describe()
+ k3 = c["temp"].describe()
  df_2 = pd.DataFrame({'Values': k3})
  df_2    = df_2.reset_index()
  df_2.columns = ['Statistics','values(mm)']
  df_2['values(mm)'] = df_2['values(mm)'].round(2)     
  df_2 = df_2[df_2['Statistics'].isin(l1)]
  df_2['Statistics'] = df_2['Statistics'].replace({'50%':'Median','mean':'Mean','std':'Standard Deviation','max':'Maximum Value'})
- df_2.loc[len(df_2.index)] = ['Year(Max Value)', c.loc[c['Max temp'].idxmax(), 'year']]
+ df_2.loc[len(df_2.index)] = ['Year(Max Value)', c.loc[c['temp'].idxmax(), 'year']]
  df_2.set_index('Statistics',inplace=True)
  #print(df_2)
  d.value =  df_2

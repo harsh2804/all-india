@@ -547,12 +547,12 @@ def p2(s2,s3,s4,s5, radio_group):#,s3,s4):
 
         b = a.set_index(['YEAR','Column1']).stack().reset_index()
        # print(b)
-        b.columns = ['year','name','month','Max temp']
+        b.columns = ['year','name','month','temp']
         b.month = b.month.astype(int)
         df2 = b.copy()
         df2 = df2[df2.name == s4]
-        df2 = df2[df2['Max temp'] >= 0]
-        pm = 'Max temp'
+        df2 = df2[df2['temp'] >= 0]
+        pm = 'temp'
         un = 'temp(degree C)'
 
   

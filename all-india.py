@@ -334,7 +334,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  m2 = db2.strftime("%b")
  #db3 = datetime.datetime.strptime(str(s5),"%m")
  #m3 = db3.strftime("%b")
- title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+ title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
  
  c = c[(c.dates >= l1) & (c.dates <= l2)]
  diff = s3 - s2  
@@ -342,7 +342,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      mm = dd[s5]
      gau.value= mm
      c = c[c.month == mm]
-     title= 'Monthly variation (' + str(s5)  +   ') of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+     title= 'Monthly variation (' + str(s5)  +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      #s2.value = s2
      #s3.value = s2
      #s2.param.precedence=-1
@@ -353,25 +353,25 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      #c = c.set_index('dates').resample('Y').sum()
      #c.year  = c.index.year
      #c = c.replace(0,np.nan)
-     title= 'Month to Month variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+     title= 'Month to Month variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index() 
  elif((radio_group == 'Yearly')):
      c = c[(c.month >= 1) & (c.month <= 12)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
      c = c.replace(0,np.nan)
-     title= 'Yearly variation ' +   ' of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+     title= 'Yearly variation ' +   ' of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
  elif((diff > 0) & (radio_group == 'Seasonal')):
      c = c[(c.month >= s2) & (c.month <= s3)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
      c = c.replace(0,np.nan)
-     title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+     title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
         
  elif((diff <= 0) & (radio_group == 'Seasonal')):
-     title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split('')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
+     title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      j1 = s2
      j2 = s3 +12
      j3 = list(range(j1,j2+1))

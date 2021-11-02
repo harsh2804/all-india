@@ -596,7 +596,7 @@ def p2(s2,s3,s4,s5, radio_group):#,s3,s4):
            df2 = df2[pm] 
         elif((radio_group == 'Yearly')):
            df2 = df2[(df2.month >= 1) & (df2.month <= 12)]
-           df2 = df2.set_index('dates').resample('Ys').sum()
+           df2 = df2.set_index('dates').resample('Ys').mean()
            df2 = df2.reset_index()
            df2['year'] = df2.dates.dt.year
            df2.set_index('dates', inplace=True)
@@ -604,7 +604,7 @@ def p2(s2,s3,s4,s5, radio_group):#,s3,s4):
         elif((diff > 0)): # & (radio_group == 'Seasonal')):
            #df = df[(df.year >= int(startdate)) & (df.year <= int(enddate))] 
            df2 = df2[(df2.month >= mm1) & (df2.month <= mm2)]
-           df2 = df2.set_index('dates').resample('Ys').sum()
+           df2 = df2.set_index('dates').resample('Ys').mean()
            df2 = df2.reset_index()
            df2['year'] = df2.dates.dt.year
            df2.set_index('dates', inplace=True)

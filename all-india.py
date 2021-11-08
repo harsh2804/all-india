@@ -144,10 +144,11 @@ m1 = int(k1.year.min())
 m2 = int(k1.year.max())
 m3 = list(range(m1,m2+1))
 m4 = list(k1.month.unique())
+m7 = list(range(0,12))
 s = pn.widgets.Select(name = 'Start Year',width = 80,  options =m3 ,value = m1, precedence=1  )
 s1 = pn.widgets.Select(name = 'End Year',width=80, options =m3 ,value = m2,  precedence=1 )
 s2 = pn.widgets.Select(name = 'Start Month',width = 80, options =m4 ,value = 1 , precedence=1 )
-s3 = pn.widgets.Select(name = 'End Month',width = 80, options =m4 ,value = 12, precedence=1  )
+s3 = pn.widgets.Select(name = 'No. of Months',width = 80, options =m7 ,value = 12, precedence=1  )
 
 #s.jslink(s4,value='value')
 #s1.jslink(s4,value='value')
@@ -242,6 +243,7 @@ s5 = pn.widgets.DiscreteSlider(name='Month', options= months_choices , value= mo
 
 @pn.depends(radio_group.param.value,s4.param.value,  watch = False)
 def p5(radio_group,s4):
+       '''
  if(radio_group == 'Monthly') :
    s2.visible=False
    s3.visible=False
@@ -266,6 +268,7 @@ def p5(radio_group,s4):
    s3.visible=True
    s5.visible=False
    gau.visible=False
+   '''
 
  b= getdata()
  k = s4
@@ -274,14 +277,15 @@ def p5(radio_group,s4):
  m2 = int(k1.year.max())
  m3 = list(range(m1,m2+1))
  m4 = list(k1.month.unique())
+ m7 = list(range(0,12))
  s.options = m3
  s1.options = m3
  s2.options = m4
- s3.options = m4
+ s3.options = m7
  s.value = m3[0]
  s1.value = m3[-1]
  s2.value = m4[0]
- s3.value = m4[-1]
+ s3.value = m7[0]
 
 
 @pn.depends(s.param.value,s1.param.value,s2.param.value,s3.param.value,s4.param.value, s5.param.value ,radio_group.param.value,watch=True )
@@ -338,8 +342,8 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  
  c = c[(c.dates >= l1) & (c.dates <= l2)]
  diff = s3 - s2  
- if((radio_group == 'Monthly')):
-     mm = dd[s5]
+ if((diff == 0)):
+     mm = s3
      gau.value= mm
      c = c[c.month == mm]
      title= 'Monthly variation (' + str(s5)  +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
@@ -348,21 +352,21 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      #s2.param.precedence=-1
      #s3.param.precedence=-1
      c = c.reset_index()
- elif((radio_group == 'Month-Month')):
+ elif((diff == 11)):
      #c = c[(c.month >= s2) & (c.month <= s3)]
      #c = c.set_index('dates').resample('Y').sum()
      #c.year  = c.index.year
      #c = c.replace(0,np.nan)
      title= 'Month to Month variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index() 
- elif((radio_group == 'Yearly')):
+ elif((diff > 0)):
      c = c[(c.month >= 1) & (c.month <= 12)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
      c = c.replace(0,np.nan)
      title= 'Yearly variation ' +   ' of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
- elif((diff > 0) & (radio_group == 'Seasonal')):
+ elif((diff > 0):
      c = c[(c.month >= s2) & (c.month <= s3)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
@@ -370,7 +374,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
         
- elif((diff <= 0) & (radio_group == 'Seasonal')):
+ elif((diff <= 0):
      title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      j1 = s2
      j2 = s3 +12

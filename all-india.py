@@ -531,6 +531,39 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  #pn.param.ParamMethod.loading_indicator = False
  #ld.value=False         
  #return f#pn.pane.Matplotlib(f)
+      
+ c= getdata()
+ import calendar
+ c= c[c.name == s4]
+ c['Month'] = c['month'].apply(lambda x: calendar.month_abbr[x])
+ #c = c[c.rain >= 0]
+ #c['year'] = c['year'].astype(int)
+ c= c.replace(-99.9,np.nan)
+ c['year-month']= c['year'].astype(str) + '-' +  c['Month']
+ c = c.reset_index()
+ idx = list(range(c.year.min(),c.year.max()+1))
+ idx = [str(x) for x in idx]
+ g = len(idx)
+ idx1 =list(c['Month'].unique())   #   list(range(1,13))
+ h = len(idx1)
+ idx = idx*h
+ idx1 = idx1*g
+ idx.sort()
+ res = [i +'-' +  j for i, j in zip(idx, idx1)]
+ c = c.set_index('year-month')
+ c = c.reindex(res, fill_value=np.nan)
+ c = c.reset_index()
+ c['month1'] = pd.to_datetime(c['year-month'], format='%Y-%b').dt.month
+ c['year1'] = pd.to_datetime(c['year-month'], format='%Y-%b').dt.year
+ c = c.sort_values(['year1','month1'])
+
+ fig= px.line(c, x="year-month", y="rain",title='Available Monthly  data of '+ s4)#, color='Month')#, symbol="Month")
+ fig.update_layout(xaxis_type='category',title_x=0.5)      
+ #fig = px.bar(c, x="ym", y="rain", color="Month", title='monthly dataset of '+ s4) 
+ fig.layout.autosize = True
+ matpl.object = fig
+ matpl.config={'responsive': True, 'displaylogo': False }
+ 
  
 
 

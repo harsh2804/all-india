@@ -278,7 +278,7 @@ def p5(radio_group,s4):
        m2 = int(k1.year.max())
        m3 = list(range(m1,m2+1))
        m4 = list(k1.month.unique())
-       m7 = list(range(0,12))
+       m7 = list(range(1,12))
        s.options = m3
        s1.options = m3
        s2.options = m4

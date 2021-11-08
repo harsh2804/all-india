@@ -680,7 +680,7 @@ def p2(s2,s3,s4,s5, radio_group):#,s3,s4):
           
            #df2 = df2.set_index('dates')#.resample('Y').sum()
            
-           df2 = df2.groupby(['s'])['rain'].agg('mean') #.sum()
+           df2 = df2.groupby(['s'])['temp'].agg('mean') #.sum()
           
            df2= df2.reset_index()
            df2.year = df2['s']

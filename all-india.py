@@ -243,6 +243,7 @@ s5 = pn.widgets.DiscreteSlider(name='Month', options= months_choices , value= mo
 
 @pn.depends(radio_group.param.value,s4.param.value,  watch = False)
 def p5(radio_group,s4):
+       
        '''
  if(radio_group == 'Monthly') :
    s2.visible=False
@@ -269,23 +270,22 @@ def p5(radio_group,s4):
    s5.visible=False
    gau.visible=False
    '''
-
- b= getdata()
- k = s4
- k1 = b[b.name == k]
- m1 = int(k1.year.min())
- m2 = int(k1.year.max())
- m3 = list(range(m1,m2+1))
- m4 = list(k1.month.unique())
- m7 = list(range(0,12))
- s.options = m3
- s1.options = m3
- s2.options = m4
- s3.options = m7
- s.value = m3[0]
- s1.value = m3[-1]
- s2.value = m4[0]
- s3.value = m7[0]
+       b= getdata()
+       k = s4
+       k1 = b[b.name == k]
+       m1 = int(k1.year.min())
+       m2 = int(k1.year.max())
+       m3 = list(range(m1,m2+1))
+       m4 = list(k1.month.unique())
+       m7 = list(range(0,12))
+       s.options = m3
+       s1.options = m3
+       s2.options = m4
+       s3.options = m7
+       s.value = m3[0]
+       s1.value = m3[-1]
+       s2.value = m4[0]
+       s3.value = m7[0]
 
 
 @pn.depends(s.param.value,s1.param.value,s2.param.value,s3.param.value,s4.param.value, s5.param.value ,radio_group.param.value,watch=True )

@@ -988,6 +988,7 @@ gsp[1,2:3] = p2
 #p6=asyncio.get_event_loop().run_until_complete(p1(s, s1, s2, s3, s4)) 
 
 #w1 = pn.Column(pn.Card(file_download, plotly_pane7,  pn.panel(p1,loading_indicator=False)))
+z1=  pn.Card(matpl)
 w1 = pn.Card(plotly_pane7)
 
 w2 = pn.Card(pn.Row(  plotly_pane5,plotly_pane6 ),sizing_mode = 'stretch_width')

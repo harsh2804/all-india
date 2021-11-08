@@ -221,6 +221,7 @@ plotly_pane8 = pn.pane.Plotly()
 
 plotly_pane5 = pn.pane.Plotly()
 plotly_pane6 = pn.pane.HTML()
+matpl = pn.pane.Plotly()
 
 
 radio_group = pn.widgets.RadioButtonGroup(
@@ -353,20 +354,13 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      #s3.param.precedence=-1
      c = c.reset_index()
  elif((diff == 11)):
-     #c = c[(c.month >= s2) & (c.month <= s3)]
-     #c = c.set_index('dates').resample('Y').sum()
-     #c.year  = c.index.year
-     #c = c.replace(0,np.nan)
-     title= 'Month to Month variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
-     c = c.reset_index() 
- elif((diff > 0)):
      c = c[(c.month >= 1) & (c.month <= 12)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
      c = c.replace(0,np.nan)
      title= 'Yearly variation ' +   ' of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
- elif((diff > 0):
+ elif((diff > 0)):
      c = c[(c.month >= s2) & (c.month <= s3)]
      c = c.set_index('dates').resample('Y').mean()
      c.year  = c.index.year
@@ -374,7 +368,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
      title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      c = c.reset_index()
         
- elif((diff <= 0):
+ elif((diff < 0)):
      title= 'Seasonal variation (' + str(m1) + '-' + str(m2) +   ') of Temperature ('+s4.split(' ')[0]+') over '+ s4.split(' ')[1] + '<br> for the period ' + str(s) + '-'  + str(s1)
      j1 = s2
      j2 = s3 +12
@@ -557,7 +551,7 @@ def p1(s,s1,s2,s3,s4,s5,radio_group):
  c['year1'] = pd.to_datetime(c['year-month'], format='%Y-%b').dt.year
  c = c.sort_values(['year1','month1'])
 
- fig= px.line(c, x="year-month", y="rain",title='Available Monthly  data of '+ s4)#, color='Month')#, symbol="Month")
+ fig= px.line(c, x="year-month", y="temp",title='Available Monthly  data of '+ s4)#, color='Month')#, symbol="Month")
  fig.update_layout(xaxis_type='category',title_x=0.5)      
  #fig = px.bar(c, x="ym", y="rain", color="Month", title='monthly dataset of '+ s4) 
  fig.layout.autosize = True
@@ -1022,4 +1016,3 @@ pn.template.FastListTemplate(title="O/o Climate Research and Services,IMD Pune",
 #ppn.pane.panel(k)
 #p.save('test.html',embed=True,resources=INLINE)#,embed_json=False)
 #https://panel.holoviz.org/_static/logo_horizontal.png
-
